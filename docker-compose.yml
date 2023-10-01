@@ -1,0 +1,26 @@
+services:
+  web:
+    build:
+      context: ./docker
+    ports:
+      - '8888:80'
+    volumes:
+      - ./www:/var/www/html/laravel
+      # - ./docker/apache-config:/usr/local/apache2/conf/httpd.conf
+      - ./docker/000-default.conf:/etc/apache2/sites-enabled/000-default.conf 
+    restart: always
+    networks:
+      - backbone
+  
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 1025:1025
+      - 8025:8025
+    networks:
+      - backbone
+
+
+networks:
+  backbone:
+    
